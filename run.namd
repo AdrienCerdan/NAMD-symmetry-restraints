@@ -1,0 +1,11 @@
+# NAMD script
+
+# [CORE NAMD PARAMETERS]
+
+# symmetry constraints
+symmetryRestraints on
+symmetrykFile symk.pdb
+symmetryFile  sym.pdb
+
+
+# [CORE NAMD PARAMETERS]

@@ -1,0 +1,35 @@
+#VMD/Tcl script to generate input .pdb files for NAMD simulation with symmetry restrains (here a pentamere).
+
+set all [atomselect 0 "all"]
+$all set occupancy 0
+$all set beta 0
+
+
+# Define the monomers
+set A [atomselect 0 "segid A and backbone"]
+set B [atomselect 0 "segid B and backbone"]
+set C [atomselect 0 "segid C and backbone"]
+set D [atomselect 0 "segid D and backbone"]
+set E [atomselect 0 "segid E and backbone"]
+$A set occupancy 1
+$B set occupancy 2
+$C set occupancy 3
+$D set occupancy 4
+$E set occupancy 5
+
+$all writepdb sym.pdb
+
+
+
+# Define the harmonic force applied to selections, here a small force is applied to backbone atoms and a stronger one is applied to the helices atoms forming the transmembrane domain.
+$all set occupancy 0
+
+set bck [atomselect 0 "backbone"]
+$bck set occupancy 0.25
+
+set TMD [atomselect 0 "backbone and (resid 237 to 260 or resid 265 to 288 or resid 297 to 324 or resid 330 to 361)"]
+$TMD set occupancy 1.0
+
+$all writepdb symk.pdb
+
+exit
